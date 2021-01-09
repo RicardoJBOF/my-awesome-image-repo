@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+
 const { getPostsByUsers } = require("../helpers/dataHelpers");
 
 module.exports = ({ getUsers, getUserByEmail, addUser, getUsersPosts }) => {
@@ -47,6 +49,45 @@ module.exports = ({ getUsers, getUserByEmail, addUser, getUsersPosts }) => {
         })
       );
   });
+
+  router.post('/authenticate', (req, res) => {
+
+    const {
+      email,
+      password,
+    } = req.body;
+
+    getUserByEmail(email)
+    .then(user => {
+      if (user) {
+        if (user.password === password) {
+          const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET); 
+          res.json({ user, token })
+          res.end()
+        } else {
+          res.json({
+            msg: 'Password and email do not match!'
+          });
+        }
+      } else {
+        res.json({
+          msg: 'Email not registered!'
+        });
+      }
+    })
+    .catch(err => {
+      res.json({
+        error: err.message
+      })
+    });
+  })
+
+
+
+
+
+
+
 
   return router;
 };

@@ -8,14 +8,49 @@ export default function Login() {
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = (user) => {};
+  const onSubmit = (user) => {
+
+    console.log(user)
+
+
+    axios
+      .post("/api/users/authenticate/", user)
+
+      // .then((info) => {
+      //   if (info.data.msg === "Password and email do not match!") {
+      //     localStorage.clear();
+      //     setToken();
+      //     history.push("/login");
+      //     setMessage(info.data.msg);
+      //   } else if (info.data.msg === "Email not registered!") {
+      //     localStorage.clear();
+      //     setToken();
+      //     history.push("/login");
+      //     setMessage(info.data.msg);
+      //   } else {
+      //     localStorage.setItem("token", info.data.token);
+      //     localStorage.setItem("user", JSON.stringify(info.data.user));
+      //     setToken(info.data.token);
+
+      //     if (localStorage.getItem("task")) {
+      //       history.push("/tasks/new");
+      //     } else {
+      //       history.push("/");
+      //     }
+      //   }
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      // });
+
+
+  };
 
   return (
     <div>
       <h1>Login</h1>
 
       <form className="Registration-form" onSubmit={handleSubmit(onSubmit)}>
-
         <label htmlFor="email">Email: </label>
         <input
           name="email"
@@ -44,7 +79,6 @@ export default function Login() {
         <button className="LoginRegister_btn" type="submit">
           Login
         </button>
-
       </form>
     </div>
   );
