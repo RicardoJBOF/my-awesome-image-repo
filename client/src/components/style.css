@@ -1,0 +1,35 @@
+a {
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3em;
+  background-color: #006a71;
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+  margin-bottom: 15px;
+}
+
+.logo {
+  font-family: 'Handlee', cursive;
+  font-size: xx-large;
+  font-style: oblique;
+}
+
+.logo > span:first-child {
+  color: #ecf4f3;
+};
+
+.logo > span:last-child {
+  color: #ff7e67;
+};
+
+.navbar .nav .nav-item .nav-link {
+  color: #ecf4f3;
+};
+
+.nav {
+  align-items: center;
+}
