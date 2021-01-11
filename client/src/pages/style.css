@@ -4,6 +4,7 @@
 
 h1 {
   text-align: center;
+  color: #006a71;
 }
 
 form {
@@ -18,20 +19,16 @@ body {
   min-height: 100vh;
 }
 
-label,
-input {
-  display: block;
-  width: 100%;
-}
-
 label {
   margin-bottom: 5px;
   height: 22px;
 }
 
 input {
+  display: block;
+  width: 100%;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 10px 0px;
   border-radius: 3px;
   border: 1px solid #777;
 }
