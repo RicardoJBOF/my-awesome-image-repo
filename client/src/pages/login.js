@@ -1,20 +1,18 @@
 import React, { useContext, useState } from "react";
-import './style.css';
+import "./style.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { AppContext } from "../App.js"
-import { Container} from 'react-bootstrap'
+import { AppContext } from "../App.js";
+import { Container } from "react-bootstrap";
 
 export default function Login() {
   const [message, setMessage] = useState("");
-  const {setToken} = useContext(AppContext);
+  const { setToken } = useContext(AppContext);
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (user) => {
-
-
     axios
       .post("/api/users/authenticate/", user)
       .then((info) => {
@@ -53,7 +51,7 @@ export default function Login() {
             placeholder="Enter your email"
             ref={register({ required: true })}
           />
-          {errors.email && <p> This is a mandatory field. </p>}
+          {errors.email && <p className="Error-message"> This is a mandatory field. </p>}
 
           <label htmlFor="password">Password: </label>
           <input
@@ -63,13 +61,13 @@ export default function Login() {
             ref={register({ required: true, minLength: 6 })}
           />
           {errors.password && errors.password.type === "required" && (
-            <p> This is a mandatory field. </p>
+            <p className="Error-message"> This is a mandatory field. </p>
           )}
           {errors.password && errors.password.type === "minLength" && (
-            <p> Password must have at least 6 characters. </p>
+            <p className="Error-message"> Password must have at least 6 characters. </p>
           )}
 
-          <p>{message}</p>
+          <p className="Error-message">{message}</p>
 
           <button className="LoginRegister_btn" type="submit">
             Login

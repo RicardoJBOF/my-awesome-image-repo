@@ -75,12 +75,6 @@ button:hover {
   color: rgb(70, 153, 179);
 }
 
-.Become_tasker {
-  text-align: center;
-  margin: 2em;
-  color: #006a71;
-}
-
 .Registration-form {
   margin-top: 2em;
 }
@@ -93,6 +87,14 @@ button:hover {
   color: #006a71;
 };
 
-.Registration-form p {
+.Error-message {
   color: red;
+}
+
+.About-style {
+  padding: 0 20%;
+  margin-top: 1em;
+  color: #006a71;
+  line-height: 1.6;
+  text-align: justify;
 }
