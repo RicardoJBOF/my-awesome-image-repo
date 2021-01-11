@@ -90,3 +90,11 @@ button:hover {
 .Error-message {
   color: red;
 }
+
+.About-style {
+  padding: 0 20%;
+  margin-top: 1em;
+  color: #006a71;
+  line-height: 1.6;
+  text-align: justify;
+}

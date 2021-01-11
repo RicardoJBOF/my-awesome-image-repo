@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../App.js";
-import Avatar from "@material-ui/core/Avatar";
 
 import "./style.css";
 
