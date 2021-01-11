@@ -4,9 +4,9 @@ export default function Footer() {
 
   return (
     <>
-      <nav>
-         <p>FOOTER DESCRIPTION</p>
-      </nav>
+      <footer>
+         <p>@Copyright 2021</p>
+      </footer>
     </>
   )
 };
