@@ -50,11 +50,7 @@ export default function Navbar() {
             </div>
             <div className="nav-item">
               <Link className="nav-link" to="/users/:id">
-                {!user.photo_url ? (
-                  `Hello, ${user.first_name}!`
-                ) : (
-                  <Avatar alt={user.first_name} src={user.photo_url} />
-                )}
+                Hello, {user.first_name}!
               </Link>
             </div>
           </>
