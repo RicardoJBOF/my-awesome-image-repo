@@ -20,25 +20,26 @@ export default function Navbar() {
 
   return (
     <nav className="navbar sticky-top">
+
       <Link to="/" className="logo nav-link">
-        1m4g3-r3p0
+        MY AWESOME IMAGE REPO
       </Link>
 
-      <ul className="nav">
-        <li className="nav-item">
+      <div className="nav">
+   
           <Link className="nav-link" to="/">
             Home
           </Link>
-        </li>
-        <li className="nav-item">
+  
+        <div className="nav-item">
           <Link className="nav-link" to="/about">
             About
           </Link>{" "}
-        </li>
+        </div>
 
         {token ? (
           <>
-            <li className="nav-item">
+            <div className="nav-item">
               <Link
                 className="nav-link"
                 to="/"
@@ -46,8 +47,8 @@ export default function Navbar() {
               >
                 Logout
               </Link>
-            </li>
-            <li className="nav-item">
+            </div>
+            <div className="nav-item">
               <Link className="nav-link" to="/users/:id">
                 {!user.photo_url ? (
                   `Hello, ${user.first_name}!`
@@ -55,23 +56,23 @@ export default function Navbar() {
                   <Avatar alt={user.first_name} src={user.photo_url} />
                 )}
               </Link>
-            </li>
+            </div>
           </>
         ) : (
           <>
-            <li className="nav-item">
+            <div className="nav-item">
               <Link className="nav-link" to="/login">
                 Login
               </Link>
-            </li>
-            <li className="nav-item">
+            </div>
+            <div className="nav-item">
               <Link className="nav-link" to="/register">
                 Register
               </Link>
-            </li>
+            </div>
           </>
         )}
-      </ul>
+      </div>
 
       
     </nav>
