@@ -1,22 +1,51 @@
-import useApplicationData from "./hooks/useApplicationData.js";
+import React, { useState, createContext, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
 
-const App = () => {
-  const { state, dispatch } = useApplicationData();
-  const userList = state.users.map((user) => (
-    <li key={user.id}>
-      {" "}
-      {user.first_name} {user.last_name} {user.email}{" "}
-    </li>
-  ));
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import About from "./pages/About";
 
-  
+const AppContext = createContext();
+
+export default function App() {
+
+  const [token, setToken] = useState(localStorage.getItem('token'));
+
   return (
-    <div className="App">
-      <h1> Users </h1>
+    
+    <AppContext.Provider value={{ token, setToken }}>
+      <Router>
+        <div>
+          <Navbar />
+          <Switch> 
 
-      <ul> {userList} </ul>
-    </div>
+            <Route exact path="/">
+              <Home />
+            </Route>
+
+            <Route path="/about">
+              <About />
+            </Route>
+
+            <Route path="/login">
+              <Login />
+            </Route>
+
+            <Route path="/register">
+              <Register />
+            </Route>
+
+          </Switch>
+
+          <Footer /> 
+        </div>
+      </Router>
+    </AppContext.Provider>
   );
-};
+}
 
-export default App;
+export { AppContext }; 

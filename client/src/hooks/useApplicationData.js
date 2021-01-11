@@ -13,7 +13,6 @@ const useApplicationData = () => {
       url: "/api/users",
     })
       .then(({ data }) => {
-        console.log(data);
         dispatch({
           type: SET_USERS,
           users: data,
