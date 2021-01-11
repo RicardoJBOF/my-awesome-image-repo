@@ -51,7 +51,7 @@ export default function Login() {
             placeholder="Enter your email"
             ref={register({ required: true })}
           />
-          {errors.email && <p> This is a mandatory field. </p>}
+          {errors.email && <p className="Error-message"> This is a mandatory field. </p>}
 
           <label htmlFor="password">Password: </label>
           <input
@@ -61,13 +61,13 @@ export default function Login() {
             ref={register({ required: true, minLength: 6 })}
           />
           {errors.password && errors.password.type === "required" && (
-            <p> This is a mandatory field. </p>
+            <p className="Error-message"> This is a mandatory field. </p>
           )}
           {errors.password && errors.password.type === "minLength" && (
-            <p> Password must have at least 6 characters. </p>
+            <p className="Error-message"> Password must have at least 6 characters. </p>
           )}
 
-          <p>{message}</p>
+          <p className="Error-message">{message}</p>
 
           <button className="LoginRegister_btn" type="submit">
             Login
