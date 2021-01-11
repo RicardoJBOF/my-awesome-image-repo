@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const { getPostsByUsers } = require("../helpers/dataHelpers");
@@ -29,34 +30,12 @@ module.exports = ({ getUsers, getUserByEmail, addUser, getUsersPosts }) => {
       );
   });
 
-  router.post("/", (req, res) => {
-    const { first_name, last_name, email, password } = req.body;
-
-    getUserByEmail(email)
-      .then((user) => {
-        if (user) {
-          res.json({
-            msg: "Sorry, a user account with this email already exists",
-          });
-        } else {
-          return addUser(first_name, last_name, email, password);
-        }
-      })
-      .then((newUser) => res.json(newUser))
-      .catch((err) =>
-        res.json({
-          error: err.message,
-        })
-      );
-  });
-
   router.post("/authenticate", (req, res) => {
     const { email, password } = req.body;
-
     getUserByEmail(email)
       .then((user) => {
         if (user) {
-          if (user.password === password) {
+          if (bcrypt.compareSync(password, user.password)) {
             const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET);
             res.json({ user, token });
             res.end();
@@ -80,35 +59,32 @@ module.exports = ({ getUsers, getUserByEmail, addUser, getUsersPosts }) => {
 
   router.post("/registration", (req, res) => {
     const { first_name, last_name, email, password } = req.body;
-
     getUserByEmail(email)
       .then((user) => {
         if (user) {
           res.json({
-            msg: "User already exist!",
+            msg: "Sorry, a user account with this email already exists",
           });
         } else {
-          return addUser(first_name, last_name, email, password)
+          return addUser(
+            first_name,
+            last_name,
+            email,
+            bcrypt.hashSync(password, 12)
+          );
         }
       })
-      .then(user => {
+      .then((user) => {
         const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET);
-        res.json({ token, user })
-        res.end()
+        res.json({ token, user });
+        res.end();
       })
       .catch((err) => {
         res.json({
           error: err.message,
         });
       });
-
-
   });
-
-
-
-
-
 
   return router;
 };
