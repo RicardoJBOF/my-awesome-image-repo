@@ -78,5 +78,37 @@ module.exports = ({ getUsers, getUserByEmail, addUser, getUsersPosts }) => {
       });
   });
 
+  router.post("/registration", (req, res) => {
+    const { first_name, last_name, email, password } = req.body;
+
+    getUserByEmail(email)
+      .then((user) => {
+        if (user) {
+          res.json({
+            msg: "User already exist!",
+          });
+        } else {
+          return addUser(first_name, last_name, email, password)
+        }
+      })
+      .then(user => {
+        const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET);
+        res.json({ token, user })
+        res.end()
+      })
+      .catch((err) => {
+        res.json({
+          error: err.message,
+        });
+      });
+
+
+  });
+
+
+
+
+
+
   return router;
 };
