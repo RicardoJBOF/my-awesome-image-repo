@@ -1,20 +1,18 @@
 import React, { useContext, useState } from "react";
-import './style.css';
+import "./style.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { AppContext } from "../App.js"
-import { Container} from 'react-bootstrap'
+import { AppContext } from "../App.js";
+import { Container } from "react-bootstrap";
 
 export default function Login() {
   const [message, setMessage] = useState("");
-  const {setToken} = useContext(AppContext);
+  const { setToken } = useContext(AppContext);
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (user) => {
-
-
     axios
       .post("/api/users/authenticate/", user)
       .then((info) => {

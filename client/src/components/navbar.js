@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../App.js";
-import Avatar from '@material-ui/core/Avatar';
+import Avatar from "@material-ui/core/Avatar";
 
 import "./style.css";
 
@@ -20,17 +20,15 @@ export default function Navbar() {
 
   return (
     <nav className="navbar sticky-top">
-
       <Link to="/" className="logo nav-link">
         MY AWESOME IMAGE REPO
       </Link>
 
       <div className="nav">
-   
-          <Link className="nav-link" to="/">
-            Home
-          </Link>
-  
+        <Link className="nav-link" to="/">
+          Home
+        </Link>
+
         <div className="nav-item">
           <Link className="nav-link" to="/about">
             About
@@ -69,8 +67,6 @@ export default function Navbar() {
           </>
         )}
       </div>
-
-      
     </nav>
   );
 }
