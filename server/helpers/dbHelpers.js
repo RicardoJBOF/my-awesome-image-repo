@@ -48,10 +48,24 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const addPicture = (title, picture, user_id) => {
+    const query = {
+      text: `INSERT INTO pictures (title, link, saved_time, user_id) VALUES ($1, $2, now(), $3) RETURNING *`,
+      values: [title, picture, user_id],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
+  
+
   return {
     getUsers,
     getUserByEmail,
     addUser,
     getUsersPosts,
+    addPicture
   };
 };

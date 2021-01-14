@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import About from "./pages/About";
+import Pictures from "./pages/Pictures";
 
 const AppContext = createContext();
 
@@ -37,6 +38,10 @@ export default function App() {
 
             <Route path="/register">
               <Register />
+            </Route>
+
+            <Route path="/pictures/new">
+              <Pictures />
             </Route>
 
           </Switch>
