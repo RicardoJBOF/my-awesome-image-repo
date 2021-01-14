@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "./style.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -11,15 +11,27 @@ export default function Pictures() {
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = (user) => {};
+  const onSubmit = (data) => {
+    data.user_id = user.id;
 
-  console.log(user);
+    axios
+      .post("/pictures/post", data)
+      .then((info) => {
+        if (info.data.msg === "Registered") {
+          history.push("/");
+        } else {
+          setMessage("Enter a valid picture");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   return (
     <div>
       <Container className="p-3">
         <h1>Picture Information:</h1>
-
         <form className="Registration-form" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="title">Title: </label>
           <input
@@ -31,7 +43,6 @@ export default function Pictures() {
           {errors.title && (
             <p className="Error-message"> This is a mandatory field. </p>
           )}
-
           <label htmlFor="picture">Upload your picture: </label>
           <input
             name="picture"
@@ -42,9 +53,7 @@ export default function Pictures() {
           {errors.picture && (
             <p className="Error-message"> This is a mandatory field. </p>
           )}
-
           <p className="Error-message">{message}</p>
-
           <button className="LoginRegister_btn" type="submit">
             Add Picture
           </button>
