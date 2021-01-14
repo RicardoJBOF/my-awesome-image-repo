@@ -3,7 +3,7 @@ import useApplicationData from "../hooks/useApplicationData.js";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-  const { state, dispatch } = useApplicationData();
+  const { state } = useApplicationData();
   const userList = state.users.map((user) => (
     <li key={user.id}>
       {" "}
