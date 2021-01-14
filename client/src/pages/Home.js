@@ -11,13 +11,27 @@ export default function Home() {
     </li>
   ));
 
+  const user = localStorage.getItem('token');
+
   return (
     <div className="App">
+
       <h1> Users </h1>
       <ul> {userList} </ul>
-      <Link to="/post" className="LoginRegister_btn">
+
+      {user ?
+        <Link to="/pictures/new" className="LoginRegister_btn">
         Add Picture
-      </Link>
+        </Link> 
+        :
+        <Link to="/login" className="LoginRegister_btn">
+        Login to Add Picture
+        </Link> 
+      } 
+
+
+
+      
     </div>
   );
 }
