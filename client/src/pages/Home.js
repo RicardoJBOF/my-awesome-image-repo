@@ -1,5 +1,6 @@
 import React from "react";
 import useApplicationData from "../hooks/useApplicationData.js";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const { state, dispatch } = useApplicationData();
@@ -14,6 +15,9 @@ export default function Home() {
     <div className="App">
       <h1> Users </h1>
       <ul> {userList} </ul>
+      <Link to="/post" className="LoginRegister_btn">
+        Add Picture
+      </Link>
     </div>
   );
 }
