@@ -1,10 +1,10 @@
 import React from 'react';
-import { Jumbotron, Container, Card } from 'react-bootstrap'
+import {Container, Card, Button } from 'react-bootstrap'
 import "./style.css";
 
 import { Link } from "react-router-dom";
 
-export default function SinglePicture() {
+export default function PictureComponent() {
 
   const fakeData = [
   {  
@@ -84,7 +84,9 @@ export default function SinglePicture() {
       </Link>
       <Card.Body>
         <Card.Title>{info.title}</Card.Title>
-        <Card.Text className="align-middle">{info.saved_time}</Card.Text>
+        <Button className="Picture-button" variant="primary">Edit</Button>
+        <Button className="Picture-button" variant="primary">Delete</Button>
+        <Card.Text className="align-middle">Publication date: {info.saved_time}</Card.Text>
       </Card.Body>
     </Card>
     )
