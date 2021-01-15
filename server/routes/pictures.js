@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-module.exports = ( {addPicture} ) => {
+module.exports = ( {addPicture, getPictures} ) => {
   
   router.post("/post", (req, res) => {
     const { title, picture, user_id} = req.body;
@@ -16,7 +16,16 @@ module.exports = ( {addPicture} ) => {
         error: err.message,
       });
     })
+  });
 
+  router.get("/", (req, res) => {
+    getPictures()
+      .then((users) => res.json(users))
+      .catch((err) =>
+        res.json({
+          error: err.message,
+        })
+      );
   });
 
   return router;
