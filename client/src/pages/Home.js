@@ -19,12 +19,24 @@ export default function Home() {
 
       <h1> MY AWESOME IMAGE REPO </h1>
       <p> {userList} </p>
-      <SinglePicture 
+
+      <SinglePicture />
+
+
+      {/* <SinglePicture 
         id="1"
         title="Model"
-        link="https://images.unsplash.com/photo-1607530775692-3abd5a040b13?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80"
+        link="https://images.unsplash.com/photo-1575880918403-f578c9078302?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
         saved_time="01/01/2000"
       />
+      <SinglePicture 
+        id="2"
+        title="Model"
+        link="https://images.unsplash.com/photo-1575880918403-f578c9078302?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+        saved_time="01/01/2000"
+      /> */}
+      
+
 
       <div>
         {user ?
