@@ -2,6 +2,7 @@ import React from "react";
 import useApplicationData from "../hooks/useApplicationData.js";
 import { Link } from "react-router-dom";
 import SinglePicture from "../components/SinglePicture.js"
+import "./style.css";
 
 export default function Home() {
   const { state } = useApplicationData();
