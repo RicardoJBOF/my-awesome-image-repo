@@ -3,7 +3,7 @@ import dataReducer, { SET_PICTURES } from "../reducer/dataReducer";
 import axios from "axios";
 
 const usePicturesData = () => {
-  const [state2, dispatch] = useReducer(dataReducer, {
+  const [state, dispatch] = useReducer(dataReducer, {
     pictures: [],
     loading: true,
   });
@@ -22,7 +22,7 @@ const usePicturesData = () => {
   }, []);
 
   return {
-    state2,
+    state,
     dispatch,
   };
 };
