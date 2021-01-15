@@ -12,7 +12,7 @@ module.exports = (db) => {
 
   const getPictures = () => {
     const query = {
-      text: "SELECT * FROM pictures",
+      text: "SELECT * FROM pictures"
     };
 
     return db

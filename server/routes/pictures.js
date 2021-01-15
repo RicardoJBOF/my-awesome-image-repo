@@ -19,6 +19,7 @@ module.exports = ( {addPicture, getPictures} ) => {
   });
 
   router.get("/", (req, res) => {
+
     getPictures()
       .then((users) => res.json(users))
       .catch((err) =>
