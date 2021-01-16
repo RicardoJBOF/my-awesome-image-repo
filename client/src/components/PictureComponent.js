@@ -10,6 +10,17 @@ export default function PictureComponent() {
   const { state } = usePicturesData();
   const my_id = JSON.parse(localStorage.getItem("user")).id;
 
+  const editComponent = (id) => {
+    console.log(id)
+
+  };
+
+  const deleteComponent = (id) => {
+    console.log(id)
+
+  }
+
+
   const pictureList = state.pictures.filter(x => x.user_id === my_id).map((picture) => {
     return (
       <Card style={{ width: "18rem" }} key={picture.id} className="box">
@@ -18,10 +29,10 @@ export default function PictureComponent() {
         </Link>
         <Card.Body>
           <Card.Title>{picture.title}</Card.Title>
-          <Button className="Picture-button" variant="primary">
+          <Button onClick={() => editComponent(picture.id)}className="Picture-button" variant="primary">
             Edit
           </Button>
-          <Button className="Picture-button" variant="primary">
+          <Button onClick={() => deleteComponent(picture.id)} className="Picture-button" variant="primary">
             Delete
           </Button>
           <Card.Text className="align-middle">
