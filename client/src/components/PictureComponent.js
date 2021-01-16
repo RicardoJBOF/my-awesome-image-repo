@@ -37,7 +37,6 @@ export default function PictureComponent() {
     <Container className="p-3">
       <div className="grid">
         {pictureList}
-        {my_id}
       </div>
     </Container>
   );

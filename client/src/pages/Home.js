@@ -11,17 +11,22 @@ export default function Home() {
     <div className="App">
       <h1> MY AWESOME IMAGE REPO </h1>
 
-      <PictureComponent />
-
-      <div className="Distance-image">
+      <div >
         {user ? (
-          <Link to="/pictures/new" className="LoginRegister_btn">
-            Add Picture
-          </Link>
+          <div>
+            <PictureComponent />
+            <div className="Distance-image">
+              <Link  to="/pictures/new" className="LoginRegister_btn">
+                Add Picture
+              </Link>
+            </div>
+          </div>
         ) : (
-          <Link to="/login" className="LoginRegister_btn">
-            Login to Add Picture
-          </Link>
+          <div className="Distance-image">
+            <Link  to="/login" className="LoginRegister_btn">
+              Login to Add Picture
+            </Link>
+          </div>
         )}
       </div>
     </div>
