@@ -2,13 +2,11 @@ import React from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import "./style.css";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 import usePicturesData from "../hooks/usePicturesData.js";
 
 import { Link } from "react-router-dom";
 
 export default function PictureComponent() {
-  const history = useHistory();
   const { state } = usePicturesData();
   const my_id = JSON.parse(localStorage.getItem("user")).id;
 
@@ -17,16 +15,17 @@ export default function PictureComponent() {
   };
 
   const deleteComponent = (id) => {
-    console.log(id)
-    axios.post(`/pictures/delete/${id}`, {id})
-    .then((info) => {
-      if (info.data.msg === "Deleted") {
-        history.push("/");
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+    console.log(id);
+    axios
+      .post(`/pictures/delete/${id}`, { id })
+      .then((info) => {
+        if (info.data.msg === "Deleted") {
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const pictureList = state.pictures
