@@ -29,11 +29,7 @@ module.exports = ( {addPicture, getPictures, deletePicture} ) => {
       );
   });
 
-
-
   router.post("/delete/:id", (req, res) => {
-
-    console.log(`ME DELETE, ID: ${req.body.id}`)
     const { id } = req.body;
 
     deletePicture(id)
@@ -49,8 +45,6 @@ module.exports = ( {addPicture, getPictures, deletePicture} ) => {
     );
 
   });
-
-
 
   return router;
 };

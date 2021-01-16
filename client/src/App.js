@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import About from "./pages/About";
 import Pictures from "./pages/Pictures";
+import Edit from "./pages/Edit";
 
 const AppContext = createContext();
 
@@ -42,6 +43,10 @@ export default function App() {
 
             <Route path="/pictures/new">
               <Pictures />
+            </Route>
+
+            <Route path="/pictures/edit/:id">
+              <Edit />
             </Route>
 
           </Switch>

@@ -2,16 +2,18 @@ import React from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import "./style.css";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import usePicturesData from "../hooks/usePicturesData.js";
 
 import { Link } from "react-router-dom";
 
 export default function PictureComponent() {
+  const history = useHistory();
   const { state } = usePicturesData();
   const my_id = JSON.parse(localStorage.getItem("user")).id;
 
   const editComponent = (id) => {
-    console.log(id);
+    history.push(`/pictures/edit/${id}`);
   };
 
   const deleteComponent = (id) => {
