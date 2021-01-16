@@ -1,4 +1,5 @@
 export const SET_USERS = "SET_USERS";
+export const SET_PICTURES = "SET_PICTURES";
 
 const dataReducer = (state, action) => {
   switch (action.type) {
@@ -8,8 +9,17 @@ const dataReducer = (state, action) => {
         users: action.users,
         loading: false,
       };
+    
+    case SET_PICTURES:
+    return {
+      ...state,
+      pictures: action.pictures,
+      loading: false,
+    };    
+
     default:
       return state;
+
   }
 };
 
