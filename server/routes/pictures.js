@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-module.exports = ( {addPicture, getPictures} ) => {
+module.exports = ( {addPicture, getPictures, deletePicture} ) => {
   
   router.post("/post", (req, res) => {
     const { title, picture, user_id} = req.body;
@@ -28,6 +28,29 @@ module.exports = ( {addPicture, getPictures} ) => {
         })
       );
   });
+
+
+
+  router.post("/delete/:id", (req, res) => {
+
+    console.log(`ME DELETE, ID: ${req.body.id}`)
+    const { id } = req.body;
+
+    deletePicture(id)
+    .then( r => {
+      res.json({
+        msg: "Deleted",
+      })
+    })
+    .catch((err) =>
+      res.json({
+        error: err.message,
+      })
+    );
+
+  });
+
+
 
   return router;
 };

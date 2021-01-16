@@ -70,6 +70,18 @@ module.exports = (db) => {
       .then((result) => result.rows[0])
       .catch((err) => err);
   };
+
+  const deletePicture = (id) => {
+    const query = {
+      text: `DELETE FROM pictures WHERE id= $1`,
+      values: [id],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
   
 
   return {
@@ -78,6 +90,7 @@ module.exports = (db) => {
     getUserByEmail,
     addUser,
     getUsersPosts,
-    addPicture
+    addPicture,
+    deletePicture,
   };
 };
