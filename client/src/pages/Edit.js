@@ -17,7 +17,6 @@ export default function Edit() {
 
 
 
-
   useEffect(() => {
     axios({
       method: "GET",
@@ -37,7 +36,14 @@ export default function Edit() {
     <div>
       <Container className="p-3">
         <h1>Edit Picture</h1>
+
+
         <form className="Registration-form" onSubmit={handleSubmit(onSubmit)}>
+
+          <button className="LoginRegister_btn" type="submit">
+            Bring Data
+          </button>
+
           <label htmlFor="email">Title: </label>
           <input
             name="title"
