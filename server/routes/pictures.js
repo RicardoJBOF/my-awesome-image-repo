@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-module.exports = ( {addPicture, getPictures, deletePicture, getSpecificPicture} ) => {
+module.exports = ( {addPicture, getPictures, deletePicture, getSpecificPicture, updatePicture} ) => {
   
   router.post("/post", (req, res) => {
     const { title, picture, user_id} = req.body;
@@ -48,6 +48,27 @@ module.exports = ( {addPicture, getPictures, deletePicture, getSpecificPicture} 
     .then( r => {
       res.json({
         msg: "Deleted",
+      })
+    })
+    .catch((err) =>
+      res.json({
+        error: err.message,
+      })
+    );
+
+  });
+
+
+  router.post("/update/:id", (req, res) => {
+    const id = req.params.id;
+    const { title, link } = req.body
+
+    console.log('id, title, link------>', id, title, link)
+
+    updatePicture(id, title, link)
+    .then( r => {
+      res.json({
+        msg: "Updated",
       })
     })
     .catch((err) =>

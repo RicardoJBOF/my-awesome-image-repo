@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 import "./style.css";
 
 export default function Edit() {
+  const history = useHistory();
   const [message, setMessage] = useState("");
   const { register, handleSubmit, errors } = useForm();
   const id = window.location.pathname.split("/")[3];
@@ -13,6 +15,15 @@ export default function Edit() {
   const myLink = useRef(null);
 
   const onSubmit = (picture) => {
+    axios
+    .post(`/pictures/update/${id}`, picture)
+    .then((info) => { 
+      console.log(info)
+      history.push(`/`);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }
 
 

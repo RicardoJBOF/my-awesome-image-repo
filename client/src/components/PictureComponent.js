@@ -17,7 +17,6 @@ export default function PictureComponent() {
   };
 
   const deleteComponent = (id) => {
-    console.log(id);
     axios
       .post(`/pictures/delete/${id}`, { id })
       .then((info) => {

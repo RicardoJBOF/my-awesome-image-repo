@@ -94,6 +94,22 @@ module.exports = (db) => {
       .then((result) => result.rows[0])
       .catch((err) => err);
   };
+
+
+  const updatePicture = (id, title, link) => {
+    const query = {
+      text: `UPDATE pictures
+      SET title = $1, link = $2, saved_time = now() 
+      WHERE id = $3
+      RETURNING *`,
+      values: [title, link, id],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
   
 
   return {
@@ -104,6 +120,7 @@ module.exports = (db) => {
     getUsersPosts,
     addPicture,
     deletePicture,
-    getSpecificPicture
+    getSpecificPicture,
+    updatePicture
   };
 };
