@@ -1,5 +1,7 @@
 var express = require("express");
 var router = express.Router();
+const fs = require('fs');
+const AWS = require('aws-sdk');
 
 module.exports = ({
   addPicture,
