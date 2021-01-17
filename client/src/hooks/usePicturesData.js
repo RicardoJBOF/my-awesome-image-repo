@@ -2,15 +2,16 @@ import { useEffect, useReducer } from "react";
 import dataReducer, { SET_PICTURES } from "../reducer/dataReducer";
 import axios from "axios";
 
-const usePicturesData = () => {
+const usePicturesData = (my_id) => {
   const [state, dispatch] = useReducer(dataReducer, {
     pictures: [],
     loading: true,
   });
+  
   useEffect(() => {
     axios({
       method: "GET",
-      url: "/pictures",
+      url: `/pictures/my_pics/${my_id}`,
     })
       .then(({ data }) => {
         dispatch({

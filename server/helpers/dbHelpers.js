@@ -10,9 +10,23 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const getPictures = () => {
+  const getPictures = (id) => {
     const query = {
-      text: "SELECT * FROM pictures"
+      text: `SELECT pc.* FROM pictures AS pc
+      JOIN users AS u ON pc.user_id = u.id
+      WHERE u.id = $1`,
+      values: [id]
+    };
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
+  const getSpecificPicture = (id) => {
+    const query = {
+      text: `SELECT * FROM pictures WHERE id = $1`,
+      values: [id],
     };
 
     return db
@@ -70,6 +84,34 @@ module.exports = (db) => {
       .then((result) => result.rows[0])
       .catch((err) => err);
   };
+
+  const deletePicture = (id) => {
+    const query = {
+      text: `DELETE FROM pictures WHERE id= $1`,
+      values: [id],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
+
+
+  const updatePicture = (id, title, link) => {
+    const query = {
+      text: `UPDATE pictures
+      SET title = $1, link = $2, saved_time = now() 
+      WHERE id = $3
+      RETURNING *`,
+      values: [title, link, id],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
   
 
   return {
@@ -78,6 +120,9 @@ module.exports = (db) => {
     getUserByEmail,
     addUser,
     getUsersPosts,
-    addPicture
+    addPicture,
+    deletePicture,
+    getSpecificPicture,
+    updatePicture
   };
 };
