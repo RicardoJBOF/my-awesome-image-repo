@@ -1,27 +1,35 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
-module.exports = ( {addPicture, getPictures, deletePicture, getSpecificPicture, updatePicture} ) => {
-  
+module.exports = ({
+  addPicture,
+  getPictures,
+  deletePicture,
+  getSpecificPicture,
+  updatePicture,
+}) => {
   router.post("/post", (req, res) => {
-    const { title, picture, user_id} = req.body;
+    const { title, picture, user_id } = req.body;
     addPicture(title, picture, user_id)
-    .then( r => {
-      res.json({
-        msg: "Registered",
+      .then((r) => {
+        res.json({
+          msg: "Registered",
+        });
       })
-    })
-    .catch((err) => {
-      res.json({
-        error: err.message,
+      .catch((err) => {
+        res.json({
+          error: err.message,
+        });
       });
-    })
   });
 
-  router.get("/", (req, res) => {
+  router.get("/my_pics/:id", (req, res) => {
+    const id = req.params.id;
 
-    getPictures()
-      .then((users) => res.json(users))
+    getPictures(id)
+      .then((users) => {
+        res.json(users);
+      })
       .catch((err) =>
         res.json({
           error: err.message,
@@ -42,43 +50,41 @@ module.exports = ( {addPicture, getPictures, deletePicture, getSpecificPicture, 
   });
 
   router.post("/delete/:id", (req, res) => {
-    const { id } = req.body;
-
-    deletePicture(id)
-    .then( r => {
-      res.json({
-        msg: "Deleted",
+    const { img_id } = req.body;
+    
+    deletePicture(img_id)
+      .then((r) => {
+        res.json({
+          msg: "Deleted",
+          success: true,
+        });
       })
-    })
-    .catch((err) =>
-      res.json({
-        error: err.message,
-      })
-    );
-
+      .catch((err) =>
+        res.json({
+          msg: `Error: ${err}`,
+          success: false,
+        })
+      );
   });
-
 
   router.post("/update/:id", (req, res) => {
     const id = req.params.id;
-    const { title, link } = req.body
+    const { title, link } = req.body;
 
-    console.log('id, title, link------>', id, title, link)
+    console.log("id, title, link------>", id, title, link);
 
     updatePicture(id, title, link)
-    .then( r => {
-      res.json({
-        msg: "Updated",
+      .then((r) => {
+        res.json({
+          msg: "Updated",
+        });
       })
-    })
-    .catch((err) =>
-      res.json({
-        error: err.message,
-      })
-    );
-
+      .catch((err) =>
+        res.json({
+          error: err.message,
+        })
+      );
   });
 
   return router;
 };
-

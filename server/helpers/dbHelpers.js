@@ -10,11 +10,13 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const getPictures = () => {
+  const getPictures = (id) => {
     const query = {
-      text: "SELECT * FROM pictures"
+      text: `SELECT pc.* FROM pictures AS pc
+      JOIN users AS u ON pc.user_id = u.id
+      WHERE u.id = $1`,
+      values: [id]
     };
-
     return db
       .query(query)
       .then((result) => result.rows)

@@ -7,21 +7,25 @@ import usePicturesData from "../hooks/usePicturesData.js";
 
 import { Link } from "react-router-dom";
 
-export default function PictureComponent() {
-  const history = useHistory();
-  const { state } = usePicturesData();
-  const my_id = JSON.parse(localStorage.getItem("user")).id;
+export default function PictureComponent( {my_id} ) {
 
-  const editComponent = (id) => {
-    history.push(`/pictures/edit/${id}`);
+  const history = useHistory();
+  let { state } = usePicturesData(my_id);
+  
+  const editComponent = (img_id) => {
+    history.push(`/pictures/edit/${img_id}`);
   };
 
-  const deleteComponent = (id) => {
+  const deleteComponent = (img_id) => {
     axios
-      .post(`/pictures/delete/${id}`, { id })
+      .post(`/pictures/delete/${img_id}`, { img_id })
       .then((info) => {
-        if (info.data.msg === "Deleted") {
-          window.location.reload();
+        if (info.data.success) {
+
+          window.location.reload()
+          // state.pictures = state.pictures.filter((item)=>{
+          //   return item.id != img_id;
+          // });
         }
       })
       .catch((err) => {
@@ -30,7 +34,6 @@ export default function PictureComponent() {
   };
 
   const pictureList = state.pictures
-    .filter((x) => x.user_id === my_id)
     .map((picture) => {
       return (
         <Card style={{ width: "18rem" }} key={picture.id} className="box">

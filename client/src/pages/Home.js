@@ -14,8 +14,10 @@ export default function Home() {
       <div >
         {user ? (
           <div>
-            <PictureComponent />
             <div className="Distance-image">
+              <PictureComponent
+              my_id={JSON.parse(localStorage.getItem("user")).id} 
+              />
               <Link  to="/pictures/new" className="LoginRegister_btn">
                 Add Picture
               </Link>
