@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import PictureUpload from '../components/PictureUpload';
+
 
 export default function Pictures() {
   const [message, setMessage] = useState("");
@@ -11,22 +13,28 @@ export default function Pictures() {
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
 
+
+
   const onSubmit = (data) => {
     data.user_id = user.id;
 
-    axios
-      .post("/pictures/post", data)
-      .then((info) => {
-        if (info.data.msg === "Registered") {
-          history.push("/");
-        } else {
-          setMessage("Enter a valid picture");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    console.log(data)
+
+    // axios
+    //   .post("/pictures/post", data)
+    //   .then((info) => {
+    //     if (info.data.msg === "Registered") {
+    //       history.push("/");
+    //     } else {
+    //       setMessage("Enter a valid picture");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
   };
+
+
 
   return (
     <div>
@@ -43,6 +51,7 @@ export default function Pictures() {
           {errors.title && (
             <p className="Error-message"> This is a mandatory field. </p>
           )}
+
           <label htmlFor="picture">Upload your picture: </label>
           <input
             name="picture"
@@ -53,12 +62,18 @@ export default function Pictures() {
           {errors.picture && (
             <p className="Error-message"> This is a mandatory field. </p>
           )}
+
+          <PictureUpload />
+
           <p className="Error-message">{message}</p>
           <button className="LoginRegister_btn" type="submit">
             Add Picture
           </button>
         </form>
       </Container>
+
+      
+
     </div>
   );
 }
