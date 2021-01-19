@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import PictureUpload from '../components/PictureUpload';
+//import PictureUpload from '../components/PictureUpload';
 
 
 export default function Pictures() {
@@ -12,16 +12,46 @@ export default function Pictures() {
   const user = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
+  
+  let state = {
+    selectedFile: null
+  }
 
+  const fileSelectedHandler = (event) => {
+    state.selectedFile = event.target.files[0]
+  }
+
+  const fileUploadHandler = () => {
+
+    let formData = new FormData();
+    
+
+
+    formData.append('image', "testando")
+
+    const config = {     
+      headers: { 'content-type': 'multipart/form-data' }
+    }
+  
+
+    axios
+      .post("/pictures/aws", formData, config)
+      .then( (r) => console.log(r))
+      .catch((err) => {
+        console.error(err);
+      });
+
+  }
 
 
   const onSubmit = (data) => {
     data.user_id = user.id;
-
     console.log(data)
+
 
     // axios
     //   .post("/pictures/post", data)
+    //   .then ()
     //   .then((info) => {
     //     if (info.data.msg === "Registered") {
     //       history.push("/");
@@ -63,10 +93,18 @@ export default function Pictures() {
             <p className="Error-message"> This is a mandatory field. </p>
           )}
 
-          <PictureUpload />
+          <label htmlFor="pictureUploaded">Upload your picture here: </label>
+          <input 
+            name="pictureUploaded"
+            type="file"
+            onChange={fileSelectedHandler}
+          />
+
+          {/* <PictureUpload
+          onChange={onSubmit} /> */}
 
           <p className="Error-message">{message}</p>
-          <button className="LoginRegister_btn" type="submit">
+          <button onClick={fileUploadHandler} className="LoginRegister_btn" type="submit">
             Add Picture
           </button>
         </form>

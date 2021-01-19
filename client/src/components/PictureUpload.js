@@ -12,6 +12,12 @@ export default class PictureUpload extends Component {
     images: []
   }
 
+  removeImage = id => {
+    this.setState({
+      images: this.state.images.filter(image => image.public_id !== id)
+    })
+  }
+  
   onChange = e => {
     const files = Array.from(e.target.files)
     this.setState({ uploading: true })
@@ -22,7 +28,7 @@ export default class PictureUpload extends Component {
       formData.append(i, file)
     })
 
-    fetch(`/`, {
+    fetch(`/pictures/aws`, {
       method: 'POST',
       body: formData
     })
@@ -34,13 +40,8 @@ export default class PictureUpload extends Component {
       })
     })
   }
-
-  removeImage = id => {
-    this.setState({
-      images: this.state.images.filter(image => image.public_id !== id)
-    })
-  }
   
+
   render() {
     const { uploading, images } = this.state
 
@@ -51,7 +52,7 @@ export default class PictureUpload extends Component {
         case images.length > 0:
           return <Images images={images} removeImage={this.removeImage} />
         default:
-          return <Buttons onChange={this.onChange} />
+          return <Buttons onChange={this.onChange}/>
       }
     }
 
