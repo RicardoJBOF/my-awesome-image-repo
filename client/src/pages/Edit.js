@@ -48,6 +48,7 @@ export default function Edit() {
             history.push(`/`);
           })
           .catch((err) => {
+            setMessage(err.data.msg)
             console.error(err);
           });
       })

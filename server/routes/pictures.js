@@ -74,8 +74,6 @@ module.exports = ({
     const id = req.params.id;
     const { title, link } = req.body;
 
-    console.log("id, title, link------>", id, title, link);
-
     updatePicture(id, title, link)
       .then((r) => {
         res.json({
@@ -85,6 +83,7 @@ module.exports = ({
       .catch((err) =>
         res.json({
           error: err.message,
+          msg: "Error to update picture!"
         })
       );
   });
