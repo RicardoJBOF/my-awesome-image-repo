@@ -14,7 +14,7 @@ const config = {
 };
 
 function generateRandomString() {
-  let randomKey = Math.random().toString(36).substring(6)
+  let randomKey = Math.random().toString(36).substring(6);
   return randomKey;
 }
 
@@ -31,10 +31,9 @@ export default function Pictures() {
   const fileSelectedHandler = (event) => {
     state.selectedFile = event.target.files[0];
 
-
-    Object.defineProperty(state.selectedFile, 'name', {
+    Object.defineProperty(state.selectedFile, "name", {
       writable: true,
-      value: generateRandomString()
+      value: generateRandomString(),
     });
   };
 

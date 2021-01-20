@@ -15,17 +15,16 @@ const config = {
 };
 
 function generateRandomString() {
-  let randomKey = Math.random().toString(36).substring(6)
+  let randomKey = Math.random().toString(36).substring(6);
   return randomKey;
 }
-
 
 export default function Edit() {
   const history = useHistory();
   const [message, setMessage] = useState("");
   const { register, handleSubmit, errors } = useForm();
   const id = window.location.pathname.split("/")[3];
-  
+
   let state = {
     selectedFile: null,
   };
@@ -33,11 +32,10 @@ export default function Edit() {
   const fileSelectedHandler = (event) => {
     state.selectedFile = event.target.files[0];
 
-    Object.defineProperty(state.selectedFile, 'name', {
+    Object.defineProperty(state.selectedFile, "name", {
       writable: true,
-      value: generateRandomString()
+      value: generateRandomString(),
     });
-
   };
 
   const onSubmit = (picture) => {
@@ -58,21 +56,14 @@ export default function Edit() {
       });
   };
 
- 
-
   return (
     <div>
       <Container className="p-3">
         <h1>Edit Picture</h1>
 
         <form className="Registration-form" onSubmit={handleSubmit(onSubmit)}>
-  
           <label htmlFor="email">Title: </label>
-          <input
-            name="title"
-            type="text"
-            ref={register({ required: true })}
-          />
+          <input name="title" type="text" ref={register({ required: true })} />
           {errors.email && (
             <p className="Error-message"> This is a mandatory field. </p>
           )}
