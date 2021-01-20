@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Container } from "react-bootstrap";
-//import PictureUpload from '../components/PictureUpload';
 import S3FileUpload from "react-s3";
 
 const config = {
@@ -13,6 +12,11 @@ const config = {
   accessKeyId: process.env.REACT_APP_accessKeyId,
   secretAccessKey: process.env.REACT_APP_secretAccessKey,
 };
+
+function generateRandomString() {
+  let randomKey = Math.random().toString(36).substring(6)
+  return randomKey;
+}
 
 export default function Pictures() {
   const [message, setMessage] = useState("");
@@ -26,6 +30,12 @@ export default function Pictures() {
 
   const fileSelectedHandler = (event) => {
     state.selectedFile = event.target.files[0];
+
+
+    Object.defineProperty(state.selectedFile, 'name', {
+      writable: true,
+      value: generateRandomString()
+    });
   };
 
   const onSubmit = (data) => {
