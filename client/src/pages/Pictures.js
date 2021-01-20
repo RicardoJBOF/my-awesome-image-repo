@@ -5,6 +5,14 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Container } from "react-bootstrap";
 //import PictureUpload from '../components/PictureUpload';
+import S3FileUpload from 'react-s3';
+
+const config = {
+  bucketName: process.env.REACT_APP_bucketName,
+  region: process.env.REACT_APP_region,
+  accessKeyId: process.env.REACT_APP_accessKeyId,
+  secretAccessKey: process.env.REACT_APP_secretAccessKey
+}
 
 
 export default function Pictures() {
@@ -23,30 +31,45 @@ export default function Pictures() {
 
   const fileUploadHandler = () => {
 
-    let formData = new FormData();
+    console.log(config)
+    console.log(state.selectedFile)
+    
+    S3FileUpload.uploadFile(state.selectedFile, config)
+    .then((data) => {
+      console.log(data.location)
+    })
+    .catch( (err)=> {
+      console.log(err)
+    })
+
+
+
+
+
+    // let formData = new FormData();
     
 
 
-    formData.append('image', "testando")
+    // formData.append('image', state.selectedFile)
 
-    const config = {     
-      headers: { 'content-type': 'multipart/form-data' }
-    }
+    // const config = {     
+    //   headers: { 'content-type': 'multipart/form-data' }
+    // }
   
 
-    axios
-      .post("/pictures/aws", formData, config)
-      .then( (r) => console.log(r))
-      .catch((err) => {
-        console.error(err);
-      });
+    // axios
+    //   .post("/pictures/aws", formData, config)
+    //   .then( (r) => console.log(r))
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
 
   }
 
 
   const onSubmit = (data) => {
     data.user_id = user.id;
-    console.log(data)
+    //console.log(data)
 
 
     // axios
@@ -100,8 +123,6 @@ export default function Pictures() {
             onChange={fileSelectedHandler}
           />
 
-          {/* <PictureUpload
-          onChange={onSubmit} /> */}
 
           <p className="Error-message">{message}</p>
           <button onClick={fileUploadHandler} className="LoginRegister_btn" type="submit">
