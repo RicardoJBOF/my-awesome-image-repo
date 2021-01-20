@@ -27,7 +27,6 @@ export default function Edit() {
   }
 
 
-
   useEffect(() => {
     axios({
       method: "GET",

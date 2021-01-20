@@ -51,7 +51,7 @@ export default function App() {
 
           </Switch>
 
-          {/* <Footer />  */}
+          <Footer /> 
         </div>
       </Router>
     </AppContext.Provider>
