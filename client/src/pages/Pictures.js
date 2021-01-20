@@ -4,6 +4,19 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import S3FileUpload from "react-s3";
+
+const config = {
+  bucketName: process.env.REACT_APP_bucketName,
+  region: process.env.REACT_APP_region,
+  accessKeyId: process.env.REACT_APP_accessKeyId,
+  secretAccessKey: process.env.REACT_APP_secretAccessKey,
+};
+
+function generateRandomString() {
+  let randomKey = Math.random().toString(36).substring(6);
+  return randomKey;
+}
 
 export default function Pictures() {
   const [message, setMessage] = useState("");
@@ -11,20 +24,42 @@ export default function Pictures() {
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
 
+  let state = {
+    selectedFile: null,
+  };
+
+  const fileSelectedHandler = (event) => {
+    state.selectedFile = event.target.files[0];
+
+    Object.defineProperty(state.selectedFile, "name", {
+      writable: true,
+      value: generateRandomString(),
+    });
+  };
+
   const onSubmit = (data) => {
     data.user_id = user.id;
 
-    axios
-      .post("/pictures/post", data)
-      .then((info) => {
-        if (info.data.msg === "Registered") {
-          history.push("/");
-        } else {
-          setMessage("Enter a valid picture");
-        }
+    S3FileUpload.uploadFile(state.selectedFile, config)
+      .then((aws) => {
+        data.picture = aws.location;
+
+        axios
+          .post("/pictures/post", data)
+          .then()
+          .then((info) => {
+            if (info.data.msg === "Registered") {
+              history.push("/");
+            } else {
+              setMessage("Enter a valid picture");
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err);
       });
   };
 
@@ -43,16 +78,18 @@ export default function Pictures() {
           {errors.title && (
             <p className="Error-message"> This is a mandatory field. </p>
           )}
-          <label htmlFor="picture">Upload your picture: </label>
+
+          <label htmlFor="pictureUploaded">Upload your picture here: </label>
           <input
-            name="picture"
-            type="text"
-            placeholder="Upload here"
+            name="pictureUploaded"
+            type="file"
+            onChange={fileSelectedHandler}
             ref={register({ required: true })}
           />
           {errors.picture && (
             <p className="Error-message"> This is a mandatory field. </p>
           )}
+
           <p className="Error-message">{message}</p>
           <button className="LoginRegister_btn" type="submit">
             Add Picture
