@@ -4,20 +4,8 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import S3FileUpload from "react-s3";
-
+import { generateRandomString, AWSconfig } from "../helpers/helpers"
 import "./style.css";
-
-const config = {
-  bucketName: process.env.REACT_APP_bucketName,
-  region: process.env.REACT_APP_region,
-  accessKeyId: process.env.REACT_APP_accessKeyId,
-  secretAccessKey: process.env.REACT_APP_secretAccessKey,
-};
-
-function generateRandomString() {
-  let randomKey = Math.random().toString(36).substring(6);
-  return randomKey;
-}
 
 export default function Pictures() {
   const [message, setMessage] = useState("");
@@ -41,7 +29,7 @@ export default function Pictures() {
   const onSubmit = (data) => {
     data.user_id = user.id;
 
-    S3FileUpload.uploadFile(state.selectedFile, config)
+    S3FileUpload.uploadFile(state.selectedFile, AWSconfig)
       .then((aws) => {
         data.picture = aws.location;
 

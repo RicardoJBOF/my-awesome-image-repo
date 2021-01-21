@@ -4,20 +4,9 @@ import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useHistory, useLocation } from "react-router-dom";
 import S3FileUpload from "react-s3";
+import { generateRandomString, AWSconfig } from "../helpers/helpers"
 
 import "./style.css";
-
-const config = {
-  bucketName: process.env.REACT_APP_bucketName,
-  region: process.env.REACT_APP_region,
-  accessKeyId: process.env.REACT_APP_accessKeyId,
-  secretAccessKey: process.env.REACT_APP_secretAccessKey,
-};
-
-function generateRandomString() {
-  let randomKey = Math.random().toString(36).substring(6);
-  return randomKey;
-}
 
 export default function Edit() {
   const history = useHistory();
@@ -25,7 +14,6 @@ export default function Edit() {
   const { register, handleSubmit, errors } = useForm();
   const id = window.location.pathname.split("/")[3];
   const editPicture = useLocation();
-
 
   let state = {
     selectedFile: null,
@@ -41,7 +29,7 @@ export default function Edit() {
   };
 
   const onSubmit = (picture) => {
-    S3FileUpload.uploadFile(state.selectedFile, config)
+    S3FileUpload.uploadFile(state.selectedFile, AWSconfig)
       .then((aws) => {
         picture.link = aws.location;
         axios
