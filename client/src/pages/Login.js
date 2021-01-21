@@ -4,6 +4,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../App.js";
 import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import "./style.css";
 
@@ -75,6 +76,9 @@ export default function Login() {
           <button className="LoginRegister_btn" type="submit">
             Login
           </button>
+
+          <p>If you are not registered, <Link to="/register" className="style-Signup">Sign Up</Link>!</p>
+
         </form>
       </Container>
     </div>

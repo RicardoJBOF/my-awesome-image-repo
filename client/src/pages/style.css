@@ -107,6 +107,12 @@ button:hover {
   padding-left: 0.5em;
 }
 
-.Picture-button{
+.Picture-button {
   margin: 0.5em;
+}
+
+.style-Signup {
+  margin-top: 1em;
+  color: blue;
+  text-decoration: underline;
 }
