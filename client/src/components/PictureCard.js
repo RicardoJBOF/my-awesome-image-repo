@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { Card, Button } from "react-bootstrap";
 import "./style.css";
 import axios from "axios";
@@ -7,11 +7,8 @@ import { Link } from "react-router-dom";
 
 export default function PictureCard(picture) {
   const history = useHistory();
-  
 
   const editComponent = (img_id) => {
-    console.log(picture)
-
     history.push({
       pathname:`/pictures/edit/${img_id}`,
       state: picture
@@ -24,9 +21,6 @@ export default function PictureCard(picture) {
       .then((info) => {
         if (info.data.success) {
           window.location.reload();
-          // state.pictures = state.pictures.filter((item)=>{
-          //   return item.id != img_id;
-          // });
         }
       })
       .catch((err) => {
