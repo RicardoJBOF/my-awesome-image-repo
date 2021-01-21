@@ -5,9 +5,9 @@ My Awesome Image Repo is an app in which registered users can see, post (add), e
 
 ## Final Product
 
-![Screenshot Login](https://github.com/RicardoJBOF/my-awesome-image-repo/blob/master/docs/login-page)
+![Screenshot Login](https://github.com/RicardoJBOF/my-awesome-image-repo/blob/master/docs/login-page.png)
 ![Screenshot Album](https://github.com/RicardoJBOF/my-awesome-image-repo/blob/master/docs/home-page.png)
-![Screenshot Add Picture](https://github.com/RicardoJBOF/my-awesome-image-repo/blob/master/docs/add-picture-page.png.png)
+![Screenshot Add Picture](https://github.com/RicardoJBOF/my-awesome-image-repo/blob/master/docs/add-picture-page.png)
 
 
 ## Dependencies
@@ -24,7 +24,8 @@ My Awesome Image Repo is an app in which registered users can see, post (add), e
   - Create a new DB in your PostgreSQL 6.x.
   - Create a new bucket in your Amazon S3 account.
     - Update your Permissions Cross-origin resource sharing (CORS):
-    ```[
+    ```
+    [
       {
           "AllowedHeaders": [
               "*"
@@ -40,7 +41,7 @@ My Awesome Image Repo is an app in which registered users can see, post (add), e
           ],
           "ExposeHeaders": []
       }
-    ]```
+    ]
     
 
 - Server:
