@@ -102,3 +102,11 @@ button:hover {
 .Distance-image {
   margin: 2em 0 10em;
 }
+
+.left-padding {
+  padding-left: 0.5em;
+}
+
+.Picture-button{
+  margin: 0.5em;
+}

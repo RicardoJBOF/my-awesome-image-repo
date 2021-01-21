@@ -66,13 +66,14 @@ export default function Edit() {
 
         <form className="Registration-form" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="email">Title: </label>
-          <input name="title" type="text" defaultValue={editPicture.state.title} ref={register({ required: true })} />
+          <input className="left-padding" name="title" type="text" defaultValue={editPicture.state.title} ref={register({ required: true })} />
           {errors.email && (
             <p className="Error-message"> This is a mandatory field. </p>
           )}
 
           <label htmlFor="pictureUploaded">Add new picture: </label>
           <input
+            className="left-padding"
             name="pictureUploaded"
             type="file"
             onChange={fileSelectedHandler}
