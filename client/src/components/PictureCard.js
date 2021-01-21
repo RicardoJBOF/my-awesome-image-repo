@@ -3,14 +3,19 @@ import { Card, Button } from "react-bootstrap";
 import "./style.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
 import { Link } from "react-router-dom";
 
 export default function PictureCard(picture) {
   const history = useHistory();
+  
 
   const editComponent = (img_id) => {
-    history.push(`/pictures/edit/${img_id}`);
+    console.log(picture)
+
+    history.push({
+      pathname:`/pictures/edit/${img_id}`,
+      state: picture
+    });
   };
 
   const deleteComponent = (img_id) => {

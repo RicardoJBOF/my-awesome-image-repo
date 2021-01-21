@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import S3FileUpload from "react-s3";
 
 import "./style.css";
@@ -24,6 +24,8 @@ export default function Edit() {
   const [message, setMessage] = useState("");
   const { register, handleSubmit, errors } = useForm();
   const id = window.location.pathname.split("/")[3];
+  const editPicture = useLocation();
+
 
   let state = {
     selectedFile: null,
@@ -64,7 +66,7 @@ export default function Edit() {
 
         <form className="Registration-form" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="email">Title: </label>
-          <input name="title" type="text" ref={register({ required: true })} />
+          <input name="title" type="text" defaultValue={editPicture.state.title} ref={register({ required: true })} />
           {errors.email && (
             <p className="Error-message"> This is a mandatory field. </p>
           )}
