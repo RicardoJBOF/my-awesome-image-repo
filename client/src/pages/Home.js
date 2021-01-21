@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PictureComponent from "../components/PictureComponent.js";
+import PicturesComponent from "../components/PicturesComponent.js";
 import "./style.css";
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
         {user ? (
           <div>
             <div className="Distance-image">
-              <PictureComponent
+              <PicturesComponent
                 my_id={JSON.parse(localStorage.getItem("user")).id}
               />
               <Link to="/pictures/new" className="LoginRegister_btn">

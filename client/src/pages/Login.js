@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
-import "./style.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../App.js";
 import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
+import "./style.css";
 
 export default function Login() {
   const [message, setMessage] = useState("");
@@ -46,6 +48,7 @@ export default function Login() {
         <form className="Registration-form" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="email">Email: </label>
           <input
+            className="left-padding"
             name="email"
             type="text"
             placeholder="Enter your email"
@@ -55,6 +58,7 @@ export default function Login() {
 
           <label htmlFor="password">Password: </label>
           <input
+            className="left-padding"
             name="password"
             type="password"
             placeholder="Enter your password"
@@ -72,6 +76,9 @@ export default function Login() {
           <button className="LoginRegister_btn" type="submit">
             Login
           </button>
+
+          <p>If you are not registered, <Link to="/register" className="style-Signup">Sign Up</Link>!</p>
+
         </form>
       </Container>
     </div>

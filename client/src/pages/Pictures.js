@@ -1,22 +1,11 @@
 import React, { useState } from "react";
-import "./style.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import S3FileUpload from "react-s3";
-
-const config = {
-  bucketName: process.env.REACT_APP_bucketName,
-  region: process.env.REACT_APP_region,
-  accessKeyId: process.env.REACT_APP_accessKeyId,
-  secretAccessKey: process.env.REACT_APP_secretAccessKey,
-};
-
-function generateRandomString() {
-  let randomKey = Math.random().toString(36).substring(6);
-  return randomKey;
-}
+import { generateRandomString, AWSconfig } from "../helpers/helpers"
+import "./style.css";
 
 export default function Pictures() {
   const [message, setMessage] = useState("");
@@ -40,7 +29,7 @@ export default function Pictures() {
   const onSubmit = (data) => {
     data.user_id = user.id;
 
-    S3FileUpload.uploadFile(state.selectedFile, config)
+    S3FileUpload.uploadFile(state.selectedFile, AWSconfig)
       .then((aws) => {
         data.picture = aws.location;
 
@@ -70,6 +59,7 @@ export default function Pictures() {
         <form className="Registration-form" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="title">Title: </label>
           <input
+            className="left-padding"
             name="title"
             type="text"
             placeholder="Picture Title"
@@ -81,6 +71,7 @@ export default function Pictures() {
 
           <label htmlFor="pictureUploaded">Upload your picture here: </label>
           <input
+            className="left-padding"
             name="pictureUploaded"
             type="file"
             onChange={fileSelectedHandler}

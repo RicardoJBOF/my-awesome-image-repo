@@ -2,6 +2,7 @@ import { useEffect, useReducer } from "react";
 import dataReducer, { SET_PICTURES } from "../reducer/dataReducer";
 import axios from "axios";
 
+
 const usePicturesData = (my_id) => {
   const [state, dispatch] = useReducer(dataReducer, {
     pictures: [],
@@ -20,7 +21,7 @@ const usePicturesData = (my_id) => {
         });
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [my_id]);
 
   return {
     state,

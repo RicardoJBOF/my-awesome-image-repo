@@ -2,28 +2,18 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import S3FileUpload from "react-s3";
+import { generateRandomString, AWSconfig } from "../helpers/helpers"
 
 import "./style.css";
-
-const config = {
-  bucketName: process.env.REACT_APP_bucketName,
-  region: process.env.REACT_APP_region,
-  accessKeyId: process.env.REACT_APP_accessKeyId,
-  secretAccessKey: process.env.REACT_APP_secretAccessKey,
-};
-
-function generateRandomString() {
-  let randomKey = Math.random().toString(36).substring(6);
-  return randomKey;
-}
 
 export default function Edit() {
   const history = useHistory();
   const [message, setMessage] = useState("");
   const { register, handleSubmit, errors } = useForm();
   const id = window.location.pathname.split("/")[3];
+  const editPicture = useLocation();
 
   let state = {
     selectedFile: null,
@@ -39,7 +29,7 @@ export default function Edit() {
   };
 
   const onSubmit = (picture) => {
-    S3FileUpload.uploadFile(state.selectedFile, config)
+    S3FileUpload.uploadFile(state.selectedFile, AWSconfig)
       .then((aws) => {
         picture.link = aws.location;
         axios
@@ -48,6 +38,7 @@ export default function Edit() {
             history.push(`/`);
           })
           .catch((err) => {
+            setMessage(err.data.msg)
             console.error(err);
           });
       })
@@ -63,13 +54,14 @@ export default function Edit() {
 
         <form className="Registration-form" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="email">Title: </label>
-          <input name="title" type="text" ref={register({ required: true })} />
+          <input className="left-padding" name="title" type="text" defaultValue={editPicture.state.title} ref={register({ required: true })} />
           {errors.email && (
             <p className="Error-message"> This is a mandatory field. </p>
           )}
 
           <label htmlFor="pictureUploaded">Add new picture: </label>
           <input
+            className="left-padding"
             name="pictureUploaded"
             type="file"
             onChange={fileSelectedHandler}
